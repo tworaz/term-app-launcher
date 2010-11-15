@@ -1,0 +1,5 @@
+term-app-launcher is a very simple terminal emulator for Maemo5.
+It's ideal for launching terminal applications like Htop in their
+own dedicated window without affecting running osso-xterm sessions.
+
+term-app-launcher is based on libvte.
