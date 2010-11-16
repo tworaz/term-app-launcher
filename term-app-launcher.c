@@ -22,6 +22,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#define VERSION "0.1"
+
 
 void
 fork_done(VteTerminal *vte, gpointer udata)
@@ -43,9 +45,10 @@ print_help(const char* progname)
 {
 	printf("Usage: %s [options]\n", progname);
 	printf("Options:\n");
-	printf(" -f <fontname> : specify console font, for example \"Monospace 8\"\n");
 	printf(" -e <command>  : execute specified command (required)\n");
+	printf(" -f <fontname> : specify console font, for example \"Monospace 8\"\n");
 	printf(" -T <title>    : set window title\n");
+	printf(" -v            : print version string\n");
 	printf(" -h            : print this help\n");
 }
 
@@ -66,7 +69,7 @@ main(int argc, char** argv)
 		return 1;
 	}
 
-	while ((opt = getopt(argc, argv, "e:f:T:h")) != -1) {
+	while ((opt = getopt(argc, argv, "e:f:T:hv")) != -1) {
 		switch (opt) {
 		case 'f':
 			font = optarg;
@@ -77,6 +80,9 @@ main(int argc, char** argv)
 		case 'T':
 			title = optarg;
 			break;
+		case 'v':
+			printf("%s version %s\n", argv[0], VERSION);
+			return 0;
 		default:
 			print_help(argv[0]);
 			return 1;
@@ -94,9 +100,6 @@ main(int argc, char** argv)
 	} while ((tmp = strchr(tmp+1, ' ')));
 	cmd_args_cnt += 1;
 	cmd_args = malloc(cmd_args_cnt * sizeof(char*));
-
-	//cmd_args[0] = malloc(strlen(command)+1);
-	//strncpy(cmd_args[0], command, strlen(command));
 
 	tmp = strtok(command, " ");
 	cmd_args[0] = malloc(strlen(tmp)+1);
