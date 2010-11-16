@@ -1,0 +1,13 @@
+Source: term-app-launcher
+Section: user/utilities
+Priority: extra
+Maintainer: Peter Tworek <tworaz666@gmail.com>
+Build-Depends: debhelper (>= 5) libvte-dev
+Standards-Version: 3.7.2
+
+Package: term-app-launcher
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Very simple terminal emulator
+ term-app-launcher is a very simple, libvte based terminal emulator
+ intended to be used as a launcher for console based applications.

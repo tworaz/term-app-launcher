@@ -16,6 +16,10 @@
 APP_NAME=term-app-launcher
 OBJ=term-app-launcher.o
 
+DESTDIR?=
+PREFIX?=/usr
+BINDIR?=${PREFIX}/bin
+
 CC=gcc
 LD=gcc
 CFLAGS=-Wall -O2 -pipe
@@ -23,7 +27,7 @@ VTE_CFLAGS=$(shell pkg-config --cflags vte)
 VTE_LIBS=$(shell pkg-config --libs vte)
 
 
-all: term-app-launcher
+all: ${APP_NAME}
 
 ${APP_NAME}: ${OBJ}
 	${LD} ${VTE_LIBS} $< -o $@
@@ -31,7 +35,11 @@ ${APP_NAME}: ${OBJ}
 %.o:%.c
 	${CC} ${CFLAGS} ${VTE_CFLAGS} -c -o $@ $<
 
+install: ${APP_NAME}
+	install -g root -d ${DESTDIR}/${BINDIR}
+	install -g root -m 0755 ${APP_NAME} ${DESTDIR}/${BINDIR}/${APP_NAME}
+
 clean:
 	rm -f ${OBJ} ${APP_NAME}
 
-.PHONY: all
+.PHONY: all install
