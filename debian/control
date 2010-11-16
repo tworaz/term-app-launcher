@@ -2,7 +2,7 @@ Source: term-app-launcher
 Section: user/utilities
 Priority: extra
 Maintainer: Peter Tworek <tworaz666@gmail.com>
-Build-Depends: debhelper (>= 5) libvte-dev
+Build-Depends: debhelper (>= 5) libvte-dev (>= 0.16.14) libgtk2.0-dev (>= 2.14.7)
 Standards-Version: 3.7.2
 
 Package: term-app-launcher
