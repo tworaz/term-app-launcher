@@ -21,6 +21,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define VERSION "0.1"
 
@@ -56,13 +59,14 @@ print_help(const char* progname)
 int 
 main(int argc, char** argv)
 {
-	int 	opt;
+	int 	opt, status;
 	char* 	tmp = NULL;
 	char* 	command = NULL;
 	char* 	font = NULL;
 	char*   title = NULL;
 	char** 	cmd_args = NULL;
 	int     cmd_args_cnt = 0;
+	pid_t   cmd_pid = 0;
 
 	if (argc < 2) {
 		print_help(argv[0]);
@@ -133,9 +137,12 @@ main(int argc, char** argv)
 		gtk_window_set_title(GTK_WINDOW(window), title);
 	}
 
-	vte_terminal_fork_command (VTE_TERMINAL(vte1), cmd_args[0], cmd_args, 
-	                           NULL, "~/", FALSE, FALSE, FALSE);
+	cmd_pid = vte_terminal_fork_command (VTE_TERMINAL(vte1), cmd_args[0], cmd_args, 
+	                                     NULL, "~/", FALSE, FALSE, FALSE);
 	gtk_main ();
+
+	kill(cmd_pid, SIGTERM);
+	waitpid(cmd_pid, &status, 0);
 
 	for (opt = 0; opt < cmd_args_cnt; opt++) {
 		free(cmd_args[opt]);
