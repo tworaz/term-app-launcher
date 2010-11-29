@@ -141,9 +141,6 @@ main(int argc, char** argv)
 	                                     NULL, "~/", FALSE, FALSE, FALSE);
 	gtk_main ();
 
-	kill(cmd_pid, SIGTERM);
-	waitpid(cmd_pid, &status, 0);
-
 	for (opt = 0; opt < cmd_args_cnt; opt++) {
 		free(cmd_args[opt]);
 	}
