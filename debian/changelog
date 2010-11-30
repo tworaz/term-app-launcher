@@ -1,3 +1,9 @@
+term-app-launcher (0.1-3) unstable; urgency=low
+
+  * Add bugtracker link.
+
+ -- Peter Tworek <tworaz666@gmail.com>  Mon, 30 Nov 2010 20:40:24 +0100
+
 term-app-launcher (0.1-2) unstable; urgency=low
 
   * Fix build depends.
